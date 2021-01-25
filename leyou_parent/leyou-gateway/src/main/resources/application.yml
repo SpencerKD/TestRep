@@ -1,0 +1,19 @@
+server:
+  port: 10010
+spring:
+  application:
+    name: leyou-gateway
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    registry-fetch-interval-seconds: 5
+zuul:
+  prefix: /api
+  routes:
+    item-service: /item/** #路由到商品的微服务
+  ignored-services:
+    - upload-service # 采用集合语法，可以配置多个微服务名，过滤上传图片等上传微服务，但是依然需要通过Nginx反向代理，将请求绕过zull网关
+#  ignored-patterns: /upload/**  //过滤特定路径
